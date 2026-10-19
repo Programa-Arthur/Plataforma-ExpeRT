@@ -718,6 +718,64 @@ async function redirectToProjectRepository(response) {
   }
 }
 
+async function redirectToLatestInstaller(response, platform) {
+  const platformAssetExtensions = {
+    windows: ['.exe'],
+    macos: ['.dmg'],
+    linux: ['.deb'],
+    'linux-appimage': ['.AppImage']
+  };
+  const allowedExtensions = platformAssetExtensions[platform];
+
+  if (!allowedExtensions) {
+    return sendJson(response, 400, {
+      mensagem: 'Sistema operacional não reconhecido.'
+    });
+  }
+
+  try {
+    const releaseResponse = await fetch(
+      'https://api.github.com/repos/bs-laurao/plataforma-expert/releases/latest',
+      {
+        headers: {
+          Accept: 'application/vnd.github+json',
+          'User-Agent': 'Plataforma-ExpeRT-website'
+        },
+        signal: AbortSignal.timeout(5000)
+      }
+    );
+
+    if (!releaseResponse.ok) throw new Error(`GitHub respondeu ${releaseResponse.status}`);
+
+    const release = await releaseResponse.json();
+    const assets = Array.isArray(release.assets) ? release.assets : [];
+    const installer = assets.find((asset) =>
+      allowedExtensions.some((extension) => asset.name.toLowerCase().endsWith(extension.toLowerCase()))
+    );
+
+    if (!installer?.browser_download_url) {
+      response.writeHead(302, {
+        Location: '/tutorial.html?installer=not-ready#download-title',
+        'Cache-Control': 'no-store'
+      });
+      return response.end();
+    }
+
+    response.writeHead(302, {
+      Location: installer.browser_download_url,
+      'Cache-Control': 'no-store'
+    });
+    return response.end();
+  } catch (error) {
+    console.error('Falha ao localizar instalador da Plataforma ExpeRT:', error.message);
+    response.writeHead(302, {
+      Location: '/tutorial.html?installer=unavailable#download-title',
+      'Cache-Control': 'no-store'
+    });
+    return response.end();
+  }
+}
+
 
 // ======================================================
 // ENVIAR ARQUIVOS DO FRONT-END
@@ -793,6 +851,9 @@ const server =
       }
       if (request.method === 'GET' && url.pathname === '/download/project') {
         return redirectToProjectRepository(response);
+      }
+      if (request.method === 'GET' && url.pathname === '/download/installer') {
+        return redirectToLatestInstaller(response, url.searchParams.get('platform'));
       }
 
 

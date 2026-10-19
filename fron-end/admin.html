@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,9 +9,10 @@
     * { box-sizing: border-box; }
     :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: #1b315f; background: #f4f7fb; }
     body { min-height: 100vh; margin: 0; background: linear-gradient(180deg, #eaf1fb 0, #f4f7fb 260px); }
-    .admin-header { display: flex; align-items: center; justify-content: space-between; min-height: 82px; padding: 10px max(24px, calc((100% - 1100px)/2)); background: #12347a; box-shadow: 0 4px 16px #12347a2b; }
+    .admin-header { display: flex; align-items: center; justify-content: space-between; min-height: 80px; padding: 0 2rem; background: #12347a; box-shadow: 0 4px 16px #12347a2b; }
     .admin-brand { display: block; width: 145px; height: 62px; object-fit: contain; }
-    .admin-back { display: inline-flex; align-items: center; gap: 9px; padding: 10px 16px; border: 1px solid #ffffff70; border-radius: 999px; color: #fff; background: #ffffff16; font-size: .92rem; font-weight: 700; text-decoration: none; transition: background-color .18s ease, border-color .18s ease; }
+    .admin-header-actions { display: flex; align-items: center; gap: 12px; }
+    .admin-back { display: inline-flex; align-items: center; gap: 9px; padding: 8px 18px; border: 1px solid #ffffff70; border-radius: 999px; color: #fff; background: #ffffff16; font-size: .9rem; font-weight: 600; text-decoration: none; transition: background-color .18s ease, border-color .18s ease; }
     .admin-back:hover { color: #12347a; background: #fff; border-color: #fff; }
     .admin-back:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #8bb5ff; outline-offset: 3px; }
     main { width: min(1100px, 100% - 40px); margin: 42px auto; }
@@ -42,10 +43,35 @@
     tbody tr:hover { background: #f8fbff; }
     .hidden { display: none; }
     .muted { margin: 0; color: #64748b; }
+    .admin-theme-toggle { display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center; margin: 0; padding: 0; border: 1px solid #ffffff70; border-radius: 50%; color: #ffd43b; background: #ffffff16; font-size: 1.15rem; }
+    .admin-theme-toggle:hover { background: #ffffff30; }
+    .admin-theme-toggle i { transition: transform 420ms cubic-bezier(.2,.8,.2,1); }
+    .admin-theme-toggle .bi-moon-stars-fill { transform: rotate(-18deg) scale(.92); }
+    .admin-theme-toggle .bi-brightness-high-fill { transform: rotate(180deg) scale(1.08); }
+    :root[data-theme="dark"] { color: #c5d8f7; background: #041443; color-scheme: dark; }
+    :root[data-theme="dark"] body { background: linear-gradient(180deg, #081943 0, #041443 260px); }
+    :root[data-theme="dark"] .admin-header { background: #05104e; box-shadow: 0 4px 16px #0005; }
+    :root[data-theme="dark"] .card { border-color: #153366; background: #07123b; box-shadow: 0 8px 28px #0003; }
+    :root[data-theme="dark"] h1,
+    :root[data-theme="dark"] h2,
+    :root[data-theme="dark"] .stat strong { color: #c3d5f1; }
+    :root[data-theme="dark"] .muted { color: #b6c5dc; }
+    :root[data-theme="dark"] input { border-color: #294471; color: #e3edff; background: #0b1b43; }
+    :root[data-theme="dark"] button.secondary { color: #d4e2fa; background: #142b55; }
+    :root[data-theme="dark"] button.secondary:hover { background: #1b396c; }
+    :root[data-theme="dark"] .stat { border-color: #203d6c; color: #b6c5dc; background: #0b1b43; }
+    :root[data-theme="dark"] .table-wrap { border-color: #203d6c; }
+    :root[data-theme="dark"] table { background: #07123b; }
+    :root[data-theme="dark"] th,
+    :root[data-theme="dark"] td { border-bottom-color: #20365d; }
+    :root[data-theme="dark"] th { color: #c3d5f1; background: #10234a; }
+    :root[data-theme="dark"] tbody tr:hover { background: #10234a; }
+    @media (prefers-reduced-motion: reduce) { .admin-theme-toggle i { transition: none; } }
     @media (max-width: 600px) {
-      .admin-header { min-height: 72px; padding: 8px 16px; }
+      .admin-header { min-height: 80px; padding: 0 16px; }
       .admin-brand { width: 118px; height: 52px; }
-      .admin-back { gap: 6px; padding: 9px 12px; font-size: .84rem; }
+      .admin-header-actions { gap: 8px; }
+      .admin-back { gap: 6px; padding: 8px 12px; font-size: .82rem; }
       main { width: calc(100% - 28px); margin: 24px auto; }
       .card { padding: 21px; border-radius: 15px; }
     }
@@ -53,7 +79,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<header class="admin-header"><a href="index.html" aria-label="ExpeRT, página inicial"><img class="admin-brand" src="imagens/logo.png" alt="ExpeRT Plataforma"></a><a class="admin-back" href="index.html"><i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao início</a></header>
+<header class="admin-header"><a href="index.html" aria-label="ExpeRT, página inicial"><img class="admin-brand" src="imagens/logo.png" alt="ExpeRT Plataforma"></a><nav class="admin-header-actions" aria-label="Navegação"><a class="admin-back" href="index.html"><i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao início</a><button class="admin-theme-toggle" id="themeToggle" type="button" aria-label="Ativar tema escuro" title="Alternar tema"><i class="bi bi-moon-stars-fill" id="themeIcon" aria-hidden="true"></i></button></nav></header>
 <main>
   <section class="card" id="loginCard">
     <h1>Acesso administrativo</h1>
@@ -85,6 +111,25 @@
   </section>
 </main>
 <script>
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const htmlElement = document.documentElement;
+  function applyTheme(theme) {
+    htmlElement.setAttribute('data-theme', theme);
+    themeIcon.className = theme === 'dark' ? 'bi bi-brightness-high-fill' : 'bi bi-moon-stars-fill';
+    themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro');
+  }
+  try {
+    applyTheme(localStorage.getItem('expert_theme') || 'light');
+    themeToggleBtn.addEventListener('click', () => {
+      const nextTheme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      localStorage.setItem('expert_theme', nextTheme);
+    });
+  } catch (error) {
+    applyTheme('light');
+  }
+
   let adminToken = '';
   const loginCard = document.getElementById('loginCard');
   const dashboard = document.getElementById('dashboard');

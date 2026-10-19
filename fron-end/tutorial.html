@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tutorial | Plataforma ExpeRT</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="lindo.css">
   <style>
     .tutorial-main { max-width: 1000px; margin: 3rem auto; padding: 0 1.5rem; }
@@ -27,7 +28,20 @@
     .sensor-table tbody tr:nth-child(even) { background: #f8faff; }
     .sensor-table tbody tr:last-child td { border-bottom: 0; }
     .tutorial-card code { padding: .12rem .35rem; border-radius: 5px; color: #173f83; background: #edf4ff; }
+    .tutorial-card details { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e7edf5; }
+    .tutorial-card summary { color: var(--text-card); cursor: pointer; font-weight: 700; }
+    :root[data-theme="dark"] .tutorial-hero { background: linear-gradient(115deg, #081943, #05133b); }
+    :root[data-theme="dark"] .tutorial-card { border-color: #153366; }
+    :root[data-theme="dark"] .tutorial-card strong { color: #c3d5f1; }
+    :root[data-theme="dark"] .tutorial-card details { border-top-color: #20365d; }
+    :root[data-theme="dark"] .notice { border-color: #725b21; border-left-color: #e6a700; background: #292719; color: #f3df9b; }
+    :root[data-theme="dark"] .notice strong { color: #ffe08a; }
     .tutorial-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.25rem; }
+    .download-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 1.25rem; }
+    .download-actions .btn-animado { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; white-space: nowrap; }
+    .download-actions .resource-link { min-height: 44px; padding: .55rem .85rem; border: 1px solid var(--accent-cyan); border-radius: 999px; font-size: .88rem; }
+    .download-actions [hidden] { display: none; }
+    .download-platform-hint { margin: .65rem 0 0; color: var(--text-card-muted); font-size: .92rem; }
     .download-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 2rem; align-items: center; }
     .download-card h3 { margin-top: 0; }
     .download-card p { max-width: 620px; margin-bottom: 0; }
@@ -40,64 +54,101 @@
 <body>
   <header class="site-header">
     <div id="logo-container"><a href="index.html" aria-label="ExpeRT, página inicial"><img class="brand-image" src="imagens/logo.png" alt="ExpeRT Plataforma"></a></div>
-    <nav id="header-buttons"><a class="btn-header" href="index.html">Início</a><a class="btn-header" id="loginNav" href="login.html">Login</a></nav>
+    <nav id="header-buttons"><a class="btn-header" href="index.html">Início</a><a class="btn-header" id="loginNav" href="login.html">Login</a><button class="btn-header theme-toggle" id="themeToggle" type="button" aria-label="Ativar tema escuro" title="Alternar tema"><i class="bi bi-moon-stars-fill" id="themeIcon" aria-hidden="true"></i></button></nav>
   </header>
   <main class="tutorial-main">
     <section class="tutorial-hero">
       <h1>Como usar a Plataforma ExpeRT</h1>
-      <p>Conecte o Arduino por USB, abra a plataforma e acompanhe as leituras dos sensores em tabelas ou gráficos. A plataforma procura automaticamente uma porta serial compatível.</p>
+      <p>Siga as etapas abaixo para preparar o Arduino, abrir a plataforma e acompanhar os dados do experimento. Faça as conexões com o Arduino desligado e use o código e o esquema correspondentes ao acessório escolhido.</p>
     </section>
-    <section class="tutorial-card download-card" aria-labelledby="download-title">
-        <div>
-          <h3 id="download-title">Arquivo do projeto</h3>
-          <p>O código-fonte está no GitHub. Abra o repositório e escolha <strong>Code &gt; Download ZIP</strong> para baixar os arquivos. Para executar o projeto, o computador precisa ter Node.js e npm instalados.</p>
-        </div>
-        <a class="btn-animado" href="/download/project" target="_blank" rel="noopener noreferrer">Acessar repositório</a>
+    <section class="tutorial-card" aria-labelledby="circuit-title">
+      <h2 id="circuit-title">1. Como montar o circuito? Passo a passo</h2>
+      <p>Pense na ExpeRT como um conjunto de peças que trabalham juntas: o Arduino é a pequena placa que controla o experimento; o módulo ExpeRT encaixa sobre o Arduino e serve de ligação; e o acessório é a peça que vai medir algo ou realizar uma ação.</p>
+      <ul>
+        <li>Um <strong>sensor</strong> mede algo, como temperatura ou distância.</li>
+        <li>Um <strong>atuador</strong> realiza uma ação, como girar um motor ou acender uma luz.</li>
+        <li>O módulo encaixado sobre o Arduino também pode ser chamado de <strong>shield</strong>. É apenas o nome técnico de uma placa que se conecta a outra para acrescentar funções.</li>
+      </ul>
+      <h3>Separe as peças</h3>
+      <ul>
+        <li>Uma placa Arduino Uno ou Mega, identificada pelo nome escrito na própria placa.</li>
+        <li>O módulo ExpeRT, o sensor ou atuador que será usado e um cabo USB que transmita dados.</li>
+        <li>O desenho de montagem e o programa do Arduino indicados pelo professor para aquele acessório.</li>
+      </ul>
+      <h3>Monte sem pressa</h3>
+      <ol>
+        <li>Deixe o Arduino fora do computador e desligado enquanto prepara as peças. Assim, a placa não recebe energia durante a montagem.</li>
+        <li>Posicione o módulo ExpeRT sobre o Arduino e alinhe os pinos. Ele deve encaixar reto e sem precisar apertar. Se não encaixar, retire-o e confira a posição; não force.</li>
+        <li>Encontre no módulo a entrada indicada no desenho do seu kit. Conecte ali o sensor ou atuador. O conector deve entrar sem força.</li>
+        <li>Olhe mais uma vez para o desenho e confira se usou a entrada e a posição corretas.</li>
+        <li>Quando tudo estiver encaixado, conecte o cabo USB ao Arduino e depois ao computador. Esse cabo fornece energia à placa e permite que ela se comunique com a plataforma.</li>
+      </ol>
+      <div class="notice"><strong>Se o seu acessório tiver fios soltos:</strong> pare antes de conectar. O material disponível não mostra em qual pino cada fio deve ser colocado. Peça ao professor o desenho específico do acessório e só continue quando souber onde cada conexão vai. Não escolha os pinos por tentativa.</div>
+      <p>Depois de conectar o Arduino, a placa pode acender uma luz. Isso indica que está recebendo energia; a leitura do experimento começa nas próximas etapas, depois que o programa correto for enviado para a placa.</p>
     </section>
 
-    <section class="tutorial-card" aria-labelledby="connection-title">
-      <h2 id="connection-title">1. Conectar o Arduino e os componentes</h2>
+    <section class="tutorial-card" aria-labelledby="sketch-title">
+      <h2 id="sketch-title">2. Código do Arduino IDE</h2>
+      <p>Antes de medir, é preciso colocar um pequeno programa no Arduino. Esse programa também é chamado de <strong>sketch</strong>. Ele ensina a placa a ler o acessório e enviar os resultados para a ExpeRT. O sketch precisa corresponder ao acessório e ao circuito que você montou.</p>
       <ol>
-        <li>Com o Arduino desligado do USB, monte o circuito do sensor ou atuador que será usado.</li>
-        <li>Siga o esquema elétrico e o programa (sketch) do Arduino correspondentes ao seu experimento. Confira alimentação, polaridade e pinos antes de ligar.</li>
-        <li>Conecte o Arduino ao computador com um cabo USB que transmita dados. Aguarde o sistema reconhecer a porta serial.</li>
-        <li>Feche o Monitor Serial da Arduino IDE e outros programas que possam estar usando a porta. Só um programa pode controlar a porta serial de cada vez.</li>
+        <li>Abra a <strong>Arduino IDE</strong> no computador. É o programa usado para enviar instruções ao Arduino.</li>
+        <li>Abra o arquivo do sketch fornecido pelo professor ou responsável pelo kit. O nome do arquivo termina em <code>.ino</code>.</li>
+        <li>No menu <strong>Ferramentas &gt; Placa</strong>, escolha o modelo escrito na sua placa: <strong>Arduino Uno</strong> ou <strong>Arduino Mega</strong>.</li>
+        <li>No menu <strong>Ferramentas &gt; Porta</strong>, escolha a conexão do Arduino. Se não souber qual é, observe a lista, desconecte o cabo USB, conecte-o de novo e selecione a opção que reapareceu.</li>
+        <li>Clique em <strong>Verificar</strong> (ícone de ✓). A IDE vai conferir se o programa está escrito de um jeito que o Arduino entende. Isso ainda não envia o programa para a placa.</li>
+        <li>Se a verificação terminar sem erro, clique em <strong>Carregar</strong> (ícone de seta para a direita). Espere a IDE confirmar que o envio terminou.</li>
+        <li>Se o <strong>Monitor Serial</strong> estiver aberto, feche-o antes de abrir a ExpeRT. Ele usa a mesma conexão USB que a plataforma precisa usar.</li>
       </ol>
-      <div class="notice"><strong>Importante:</strong> o repositório contém o código-fonte da aplicação, mas não inclui o sketch do Arduino nem um mapa de pinos dos circuitos. Por isso, use o esquema e o firmware fornecidos para o seu kit; não escolha os pinos por tentativa. Motores podem precisar de driver e fonte externa: não os alimente diretamente pelos pinos do Arduino.</div>
+      <div class="notice"><strong>Não encontrou o arquivo?</strong> O sketch <code>.ino</code> não está no ZIP da aplicação nem no PDF de apresentação. Peça ao professor o sketch e o desenho de montagem do acessório que você vai usar. O ZIP desta página é para a aplicação do computador; não é o programa do Arduino.</div>
+    </section>
+
+    <section class="tutorial-card" aria-labelledby="download-title">
+      <h2 id="download-title">3. Baixar e instalar a Plataforma ExpeRT</h2>
+      <p>O botão identifica o sistema do computador e procura o instalador certo para ele. Quando houver uma versão publicada, você baixa o aplicativo pronto; não precisa instalar Node.js nem digitar comandos.</p>
+      <ol>
+        <li>Clique no botão azul. O nome dele informa para qual sistema o arquivo será baixado.</li>
+        <li>Quando o download terminar, abra o arquivo baixado. No <strong>Windows</strong>, ele termina em <code>.exe</code>; siga as telas do instalador e depois procure ExpeRT no menu Iniciar.</li>
+        <li>No <strong>macOS</strong>, abra o arquivo <code>.dmg</code>. Na janela que aparecer, arraste o ícone ExpeRT para a pasta Aplicativos. Depois, abra ExpeRT pela pasta Aplicativos.</li>
+        <li>No <strong>Ubuntu ou Debian</strong>, abra o arquivo <code>.deb</code> e escolha a opção de instalar no aplicativo de programas. Em outras versões do Linux, use o link AppImage, se estiver disponível.</li>
+      </ol>
+      <div class="download-actions">
+        <a class="btn-animado" id="downloadApp" href="/download/installer?platform=linux">Baixar aplicativo</a>
+        <a class="resource-link" id="downloadAppImage" href="/download/installer?platform=linux-appimage">Baixar AppImage para outras distribuições Linux</a>
+      </div>
+      <p id="downloadPlatformHint" class="download-platform-hint" aria-live="polite"></p>
+      <div class="notice" id="installerNotice" hidden></div>
+      <details>
+        <summary>Opção para quem desenvolve: baixar o código-fonte</summary>
+        <p>O ZIP contém os arquivos usados para criar o aplicativo; não é o instalador para uso comum. Para abrir o projeto, é necessário instalar Node.js, extrair o ZIP, abrir um terminal na pasta que contém <code>package.json</code> e executar <code>npm install</code>. Depois, execute <code>npm start</code> para iniciar a aplicação.</p>
+        <a class="resource-link" href="downloads/plataforma-expert.zip" download>Baixar código-fonte (ZIP)</a>
+        <a class="resource-link" href="/download/project" target="_blank" rel="noopener noreferrer">Abrir repositório do projeto</a>
+      </details>
     </section>
 
     <section class="tutorial-card" aria-labelledby="use-title">
-      <h2 id="use-title">2. Escolher um sensor e iniciar uma leitura</h2>
+      <h2 id="use-title">4. Como usar</h2>
+      <p>Com o aplicativo instalado, o Arduino programado e o acessório conectado, siga este roteiro para fazer uma leitura:</p>
       <ol>
-        <li>Na tela <strong>Usar Dispositivos</strong>, selecione o card do componente montado no Arduino.</li>
-        <li>Escolha <strong>Tabela</strong> para acompanhar o valor atual ou <strong>Gráfico</strong> para visualizar a variação ao longo do tempo.</li>
-        <li>Leia o aviso na tela: confirme que o circuito corresponde ao componente escolhido e reinicie o Arduino antes da coleta.</li>
-        <li>Pressione <strong>Iniciar</strong>. O status no cabeçalho indica se há conexão; as leituras chegam pela conexão serial e são exibidas na plataforma.</li>
-        <li>Use <strong>Pausar</strong> para suspender a coleta e <strong>Reiniciar</strong> para limpar os dados e começar novamente. <strong>Trocar Dispositivo</strong> retorna à lista de componentes.</li>
+        <li>Conecte o Arduino ao computador pelo cabo USB. Feche a Arduino IDE ou qualquer outro programa que esteja usando a conexão. Abra a ExpeRT.</li>
+        <li>Na tela <strong>Usar Dispositivos</strong>, encontre o cartão com o nome do acessório conectado e clique nele. Se quiser saber mais sobre um cartão, use <strong>Ver mais</strong>.</li>
+        <li>Escolha como prefere ver os resultados: <strong>Tabela</strong> mostra os números em uma lista; <strong>Gráfico</strong> desenha as mudanças ao longo do tempo.</li>
+        <li>Leia o aviso antes de começar e confira se o acessório escolhido é o mesmo que está conectado. Aperte e solte uma vez o botão marcado <strong>RESET</strong> no Arduino ou no módulo ExpeRT; isso reinicia a placa. Depois, confirme na tela para continuar. Se não encontrar esse botão, peça ajuda ao professor.</li>
+        <li>Na tela do acessório, clique em <strong>Iniciar</strong>. Os valores começam a aparecer. O indicador no alto da tela informa se a plataforma está conectada ao Arduino.</li>
+        <li>Para fazer uma pausa, clique em <strong>Pausar</strong>. Para apagar os valores da tela e começar a medição de novo, clique em <strong>Reiniciar</strong>.</li>
+        <li>Para guardar os resultados, use os botões de salvar: a tabela pode ser exportada para uma planilha Excel e o gráfico pode ser salvo como imagem PNG.</li>
+        <li>Quando terminar, use <strong>Trocar Dispositivo</strong> para voltar à lista ou feche o aplicativo. Depois, desconecte o cabo USB.</li>
       </ol>
-      <p>O controle <strong>Amostragem</strong> ajusta o intervalo de atualização da tela. No modo gráfico, o seletor <strong>Tipo</strong> altera a visualização. Os botões de exportação salvam o gráfico como imagem ou os dados em uma planilha.</p>
+      <p><strong>Amostragem</strong> é o tempo entre uma leitura e outra. Por exemplo, <strong>0,1 s</strong> significa que a tela atualiza a cada décimo de segundo; um intervalo maior deixa as atualizações mais espaçadas. Ao escolher Gráfico, o menu <strong>Tipo</strong> permite mudar o desenho, por exemplo, para linha ou barras.</p>
     </section>
 
-    <section class="tutorial-card" aria-labelledby="devices-title">
-      <h2 id="devices-title">3. Sensores e atuadores disponíveis</h2>
-      <p>A plataforma associa cada card a um canal de comunicação com o firmware do Arduino. As leituras e unidades abaixo são as descritas pela própria aplicação.</p>
-      <div class="sensor-table-wrap">
-        <table class="sensor-table">
-          <thead><tr><th>Componente</th><th>O que a plataforma mostra</th><th>Canal</th></tr></thead>
-          <tbody>
-            <tr><td>Temperatura (LM35/DHT)</td><td>Temperatura em °C</td><td>1</td></tr>
-            <tr><td>Distância (HC-SR04)</td><td>Distância em cm</td><td>2</td></tr>
-            <tr><td>Pisca LED</td><td>Período do sinal em ms</td><td>3</td></tr>
-            <tr><td>Luminosidade (LDR)</td><td>Intensidade luminosa em %</td><td>4</td></tr>
-            <tr><td>Buzzer</td><td>Canal relacionado à frequência sonora em Hz</td><td>5</td></tr>
-            <tr><td>Sensor Hall</td><td>Detecção de polo Norte, Sul ou ausência de campo</td><td>6</td></tr>
-            <tr><td>Motor CC</td><td>Canal relacionado à velocidade em %</td><td>7</td></tr>
-            <tr><td>Motor servo</td><td>Posição angular em graus</td><td>8</td></tr>
-            <tr><td>Piezoelétrico</td><td>Sinal de vibração em V</td><td>9</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="notice">Buzzer, motor CC e servo são atuadores. A seleção do card inicia o canal correspondente, mas esta interface não oferece controles para definir frequência, velocidade ou ângulo. Esses comportamentos dependem do firmware instalado no Arduino e do circuito montado.</div>
+    <section class="tutorial-card" aria-labelledby="help-title">
+      <h2 id="help-title">Se algo não funcionar</h2>
+      <ul>
+        <li><strong>A plataforma indica “Desconectado”:</strong> confira se o cabo USB transmite dados, se o Arduino está ligado e se o Monitor Serial está fechado.</li>
+        <li><strong>Os valores não aparecem:</strong> confirme que escolheu o acessório correto, que o sketch correspondente foi carregado e que as conexões seguem o desenho do kit.</li>
+        <li><strong>A Arduino IDE mostra um erro:</strong> confira o modelo da placa selecionado e peça ao professor para confirmar que o arquivo <code>.ino</code> é o correto.</li>
+        <li><strong>O instalador não aparece:</strong> talvez ainda não exista uma versão publicada para o seu sistema. Nesse caso, tente novamente mais tarde ou use a opção de código-fonte se você for desenvolvedor.</li>
+      </ul>
     </section>
 
     <div class="tutorial-links">
@@ -106,6 +157,66 @@
   </main>
   <footer><p>&copy; 2026 ExpeRT Plataforma — Instituto Federal Catarinense (Campus Sombrio)</p></footer>
   <script>
+    const downloadApp = document.getElementById('downloadApp');
+    const downloadAppImage = document.getElementById('downloadAppImage');
+    const downloadPlatformHint = document.getElementById('downloadPlatformHint');
+    const installerNotice = document.getElementById('installerNotice');
+    const reportedPlatform = navigator.userAgentData?.platform || navigator.platform || '';
+    const platformName = reportedPlatform.toLowerCase();
+    let installerPlatform = 'linux';
+    let readablePlatform = 'Linux';
+
+    if (/android|iphone|ipad/.test(platformName)) {
+      downloadApp.hidden = true;
+      downloadAppImage.hidden = true;
+      readablePlatform = 'dispositivo móvel';
+      downloadPlatformHint.textContent = 'O instalador é para computadores. Abra esta página em um computador Windows, macOS ou Linux para baixar a versão correta.';
+    } else if (platformName.includes('win')) {
+      installerPlatform = 'windows';
+      readablePlatform = 'Windows';
+      downloadAppImage.hidden = true;
+    } else if (platformName.includes('mac')) {
+      installerPlatform = 'macos';
+      readablePlatform = 'macOS';
+      downloadAppImage.hidden = true;
+    }
+
+    if (!downloadApp.hidden) {
+      downloadApp.href = `/download/installer?platform=${installerPlatform}`;
+      downloadApp.textContent = `Baixar aplicativo para ${readablePlatform}`;
+      downloadPlatformHint.textContent = `Sistema detectado: ${readablePlatform}.`;
+    }
+
+    const downloadStatus = new URLSearchParams(window.location.search).get('installer');
+    if (downloadStatus === 'not-ready') {
+      installerNotice.hidden = false;
+      installerNotice.innerHTML = '<strong>O instalador ainda não foi publicado.</strong> Quando a próxima versão for disponibilizada, este botão iniciará o download automático. Enquanto isso, desenvolvedores podem usar o código-fonte na opção acima.';
+    } else if (downloadStatus === 'unavailable') {
+      installerNotice.hidden = false;
+      installerNotice.innerHTML = '<strong>Não foi possível localizar o instalador.</strong> Confira sua conexão com a internet e tente novamente mais tarde.';
+    }
+
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    function applyTheme(theme) {
+      htmlElement.setAttribute('data-theme', theme);
+      themeIcon.className = theme === 'dark' ? 'bi bi-brightness-high-fill' : 'bi bi-moon-stars-fill';
+      themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro');
+    }
+
+    try {
+      applyTheme(localStorage.getItem('expert_theme') || 'light');
+      themeToggleBtn.addEventListener('click', () => {
+        const newTheme = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+        localStorage.setItem('expert_theme', newTheme);
+      });
+    } catch (error) {
+      applyTheme('light');
+    }
+
     try {
       if (localStorage.getItem('usuario_logado')) {
         document.getElementById('loginNav').hidden = true;

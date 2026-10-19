@@ -21,8 +21,8 @@
       <a href="index.html" class="btn-header">
         <i class="bi bi-arrow-left"></i> Voltar
       </a>
-      <button class="btn-header theme-toggle" id="themeToggle" type="button" aria-label="Alternar tema">
-        <i class="bi bi-sun-fill" id="themeIcon"></i>
+      <button class="btn-header theme-toggle" id="themeToggle" type="button" aria-label="Ativar tema escuro" title="Alternar tema">
+        <i class="bi bi-moon-stars-fill" id="themeIcon" aria-hidden="true"></i>
       </button>
     </nav>
   </header>
@@ -112,18 +112,22 @@
 
       function applyTheme(theme) {
         htmlElement.setAttribute('data-theme', theme);
-        themeIcon.className = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+        themeIcon.className = theme === 'dark' ? 'bi bi-brightness-high-fill' : 'bi bi-moon-stars-fill';
+        themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro');
       }
 
-      const savedTheme = localStorage.getItem('expert_theme') || 'light';
-      applyTheme(savedTheme);
-
-      themeToggleBtn.addEventListener('click', () => {
-        const currentTheme = htmlElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-        localStorage.setItem('expert_theme', newTheme);
-      });
+      try {
+        const savedTheme = localStorage.getItem('expert_theme') || 'light';
+        applyTheme(savedTheme);
+        themeToggleBtn.addEventListener('click', () => {
+          const currentTheme = htmlElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          applyTheme(newTheme);
+          localStorage.setItem('expert_theme', newTheme);
+        });
+      } catch (error) {
+        applyTheme('light');
+      }
 
       // --- CONEXÃO COM A API NODE/MONGODB ---
       const loginForm = document.getElementById('loginForm');

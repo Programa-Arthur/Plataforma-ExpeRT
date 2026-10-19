@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- Cabeçalho Fixo (Header)aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+  <!-- Cabeçalho Fixo (Header) -->
   <header class="site-header">
     <div id="logo-container">
       <a href="index.html" aria-label="ExpeRT, página inicial"><img class="brand-image" src="imagens/logo.png" alt="ExpeRT Plataforma"></a>
@@ -32,19 +32,62 @@
     
     <!-- Hero Section -->
     <section class="hero">
+      <div class="hero-showcase" aria-hidden="true">
+        <div class="showcase-track">
+          <img src="imagens/Temperatura.png" alt="">
+          <img src="imagens/Distancia.png" alt="">
+          <img src="imagens/PiscaLed.png" alt="">
+          <img src="imagens/Luminosidade.png" alt="">
+          <img src="imagens/Buzzer.png" alt="">
+          <img src="imagens/SensorHall.png" alt="">
+          <img src="imagens/MotorCC.png" alt="">
+          <img src="imagens/MotorServo.png" alt="">
+          <img src="imagens/Piezoeletrico.png" alt="">
+          <img src="imagens/Temperatura.png" alt="">
+          <img src="imagens/Distancia.png" alt="">
+          <img src="imagens/PiscaLed.png" alt="">
+          <img src="imagens/Luminosidade.png" alt="">
+          <img src="imagens/Buzzer.png" alt="">
+          <img src="imagens/SensorHall.png" alt="">
+          <img src="imagens/MotorCC.png" alt="">
+          <img src="imagens/MotorServo.png" alt="">
+          <img src="imagens/Piezoeletrico.png" alt="">
+        </div>
+      </div>
       <div class="hero-content">
         <h1>Plataforma ExpeRT</h1>
         <p>Inovação, automação e suporte tecnológico para transformar a aprendizagem prática de Ciências da Natureza e Matemática.</p>
         <div class="hero-actions">
-          <a href="#historia" class="btn-animado">Conhecer a Trajetória</a>
-          <a href="tutorial.html" class="btn-animado">Como utilizar</a>
-          <a href="#equipe" class="btn-animado">Sobre Nós</a>
+          <a href="#o-que-e" class="btn-animado">O que é</a>
           <a href="#instituicao" class="btn-animado">Instituição</a>
+          <a href="#historia" class="btn-animado">Trajetória</a>
+          <a href="#equipe" class="btn-animado">Desenvolvedores</a>
         </div>
       </div>
     </section>
 
     <div class="container">
+
+      <section id="o-que-e" class="about-platform">
+        <h2 class="section-title">O que é a Plataforma ExpeRT?</h2>
+        <p>A Plataforma ExpeRT é uma ferramenta educativa desenvolvida no Instituto Federal Catarinense — Campus Sombrio. Ela ajuda professores e alunos a realizar experimentos de Ciências e Matemática e observar os resultados no computador. A proposta é aproximar a teoria da prática: em vez de apenas ler que a temperatura aumenta, por exemplo, a turma pode medir essa mudança e acompanhar o que acontece.</p>
+        <p>Para fazer uma atividade, são necessários componentes conectados e um programa que receba e organize as informações. As principais partes trabalham juntas assim:</p>
+        <ul class="platform-parts">
+          <li><strong>Placa Arduino:</strong> uma pequena placa programável, parecida com um computador simples. Ela fica ligada aos componentes do experimento, lê as informações dos sensores e encaminha esses dados ao computador.</li>
+          <li><strong>Sensores e outros componentes:</strong> o sensor funciona como um instrumento de medida: pode perceber temperatura, distância ou luminosidade. Já componentes como LEDs e motores podem mostrar uma resposta ou realizar uma ação. Cada peça tem uma função e deve ser ligada nos pontos indicados para a atividade.</li>
+          <li><strong>Programa de visualização:</strong> o Sistema de Visualização de Dados (SVD) recebe os valores enviados pelo Arduino e os apresenta de um jeito mais fácil de acompanhar, como em uma tabela ou em um gráfico. Depois, os resultados podem ser salvos para consultar ou comparar.</li>
+        </ul>
+        <p>Por exemplo, imagine um experimento para observar o aquecimento de água. O sensor mede a temperatura em intervalos regulares; o Arduino envia cada valor; e o SVD organiza as medições em uma tabela e mostra a mudança em um gráfico. A turma pode ver quando a temperatura subiu mais rápido, comparar os valores do início e do fim e conversar sobre o motivo do resultado.</p>
+        <p>Assim, a plataforma ajuda a transformar uma observação em dados que podem ser analisados. O professor pode orientar a atividade e os alunos podem investigar, registrar o que aconteceu e explicar suas conclusões com base nas medições. A montagem e os componentes usados variam de acordo com o experimento.</p>
+      </section>
+
+      <!-- Seção Instituição -->
+      <section id="instituicao">
+        <h2 class="section-title">Instituição</h2>
+        <div class="institution-card">
+          <p>A <strong>Plataforma ExpeRT</strong> é desenvolvida e mantida no <strong>Instituto Federal de Educação, Ciência e Tecnologia Catarinense (IFC) – Campus Sombrio</strong>. Trata-se de um projeto de pesquisa focado em soluções computacionais aplicadas ao ensino didático de ciências.</p>
+        </div>
+      </section>
 
       <!-- Seção História e Linha do Tempo -->
       <section id="historia">
@@ -54,15 +97,11 @@
           <div class="timeline-item">
             <span class="timeline-date">2016 — Concepção e Primeira Versão (SVD)</span>
             <div class="timeline-card">
-              <h3>Integração Java/Arduino e Visualização de Dados</h3>
-              <p>
-                A Plataforma ExpeRT nasceu para enfrentar um desafio recorrente na educação básica: a escassez de laboratórios equipados e a carência de ferramentas acessíveis para a realização de experimentos práticos nas disciplinas de Ciências da Natureza e Matemática.
-              </p>
-              <p>
-                A solução inicial consistiu no desenvolvimento do Sistema de Visualização de Dados (SVD) em linguagem Java, integrado diretamente à plataforma de prototipagem Arduino. Esse sistema pioneiro permitia conectar sensores de baixo custo — como o sensor de temperatura LM35 e o sensor ultrassônico de distância HC-SR04 — para capturar variáveis físicas e gerar gráficos em tempo real no computador. Com isso, alunos e professores puderam transformar aulas teóricas em investigações científicas dinâmicas e visuais.
-              </p>
+              <h3>Os primeiros experimentos com Arduino</h3>
+              <p>O projeto começou com a ideia de facilitar atividades práticas de Ciências e Matemática, inclusive em escolas com poucos equipamentos de laboratório. Em 2016, foi criada a primeira versão do Sistema de Visualização de Dados (SVD). Ela foi desenvolvida em Java — uma linguagem usada para escrever programas — e podia receber informações de sensores conectados a uma placa Arduino.</p>
+              <p>Na prática, o sensor fazia uma medição, o Arduino enviava o valor ao computador e o programa apresentava o resultado. Entre os primeiros exemplos estavam medições de temperatura e distância. Ver os valores em um gráfico ajudava os alunos a perceber mudanças que poderiam passar despercebidas olhando apenas para o objeto do experimento.</p>
               <div class="tech-tags">
-                <span>Java</span> <span>Arduino</span> <span>LM35</span> <span>HC-SR04</span> <span>Automação Didática</span>
+                <span>Java</span> <span>Arduino</span> <span>Medição de temperatura</span> <span>Medição de distância</span>
               </div>
             </div>
           </div>
@@ -70,15 +109,11 @@
           <div class="timeline-item">
             <span class="timeline-date">2020 — Consolidação e Portal Web</span>
             <div class="timeline-card">
-              <h3>Aprimoramento Pedagógico e Distribuição Web</h3>
-              <p>
-                Com a aplicação prática do SVD em ambientes escolares, surgiram novas demandas pedagógicas e técnicas. O software em Java foi continuamente atualizado para oferecer maior controle aos professores durante as práticas experimentais, incluindo a possibilidade de configurar a taxa de amostragem (frequência com que as leituras são feitas) e alternar instantaneamente a exibição dos dados entre gráficos contínuos e tabelas numéricas.
-              </p>
-              <p>
-                Nessa mesma fase, lançou-se um portal web dedicado para centralizar a distribuição do sistema, disponibilizar guias práticos, roteiros de apoio pedagógico e estabelecer um canal direto de comunicação com os educadores da rede pública de ensino.
-              </p>
+              <h3>Mais controle para as atividades</h3>
+              <p>Com as melhorias realizadas em 2020, o professor passou a poder definir com que frequência os dados seriam registrados. Por exemplo, uma medição a cada segundo permite acompanhar uma mudança rápida; medições mais espaçadas podem ser suficientes quando o fenômeno acontece devagar. Os resultados podiam ser consultados em uma tabela, que mostra os valores organizados, ou em um gráfico, que facilita perceber tendências e diferenças.</p>
+              <p>Nesse período também foi criado um portal na internet para reunir o programa, instruções de uso e materiais de apoio. A ideia era facilitar o acesso às informações necessárias para preparar uma atividade e usar a plataforma em sala de aula.</p>
               <div class="tech-tags">
-                <span>PHP</span> <span>Bootstrap</span> <span>HTML5/CSS3</span> <span>Portal Educacional</span>
+                <span>Intervalo das medições</span> <span>Tabelas</span> <span>Gráficos</span> <span>Guias para professores</span>
               </div>
             </div>
           </div>
@@ -86,35 +121,15 @@
           <div class="timeline-item">
             <span class="timeline-date">2026 — Reformulação Tecnológica e Arquitetura Moderna</span>
             <div class="timeline-card">
-              <h3>Ecossistema Web/Desktop Multiplataforma e Execução Offline</h3>
-              <p>
-                Em 2026, a plataforma passou por uma reconstrução estrutural completa para se adequar às exigências de infraestrutura moderna das escolas. Migrou-se a arquitetura legada para tecnologias Web avançadas empacotadas para execução nativa em desktop, eliminando dependências pesadas de instalação e garantindo funcionamento 100% offline em computadores escolares.
-              </p>
-              <p>
-                A versão atual oferece suporte a um conjunto expandido de sensores, mecanismo de exportação de dados brutos (para análise posterior em planilhas ou softwares estatísticos), interface responsiva com alto contraste e gráficos interativos de altíssima precisão.
-              </p>
+              <h3>Uma nova versão para computador</h3>
+              <p>Em 2026, a plataforma passou por uma reformulação para funcionar como um aplicativo de computador. Em vez de abrir a interface dentro de uma página do navegador, a pessoa pode iniciar o programa instalado no computador. Isso simplifica o acesso e permite usar os recursos do aplicativo sem estar conectada à internet; a conexão do Arduino e a coleta de novas medições ainda dependem da montagem e do equipamento usados.</p>
+              <p>A versão atual mantém a apresentação dos dados em tabelas e gráficos e oferece formas de guardar os resultados: os dados podem ser exportados para uma planilha, onde é possível organizar ou analisar os valores, e o gráfico pode ser salvo como imagem para incluir em um relatório ou apresentação.</p>
               <div class="tech-tags">
-                <span>Web Stack</span> <span>Desktop App</span> <span>Exportação CSV/JSON</span> <span>Suporte Offline</span>
+                <span>Aplicativo para computador</span> <span>Uso sem internet</span> <span>Salvar resultados</span> <span>Gráficos</span>
               </div>
             </div>
           </div>
 
-        </div>
-      </section>
-
-      <section id="recursos">
-        <h2 class="section-title">Sensores e componentes</h2>
-        <p class="section-intro">Conheça alguns dos componentes que podem fazer parte das atividades experimentais da plataforma.</p>
-        <div class="row g-3 g-xl-4 resource-grid">
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/Temperatura.png" alt="Sensor de temperatura"></div><div class="resource-copy"><h3>Temperatura</h3><i class="bi bi-thermometer-half resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/Distancia.png" alt="Sensor de distância"></div><div class="resource-copy"><h3>Distância</h3><i class="bi bi-geo-alt resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/PiscaLed.png" alt="LED para experimentos"></div><div class="resource-copy"><h3>Pisca LED</h3><i class="bi bi-lightbulb resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/Luminosidade.png" alt="Sensor de luminosidade"></div><div class="resource-copy"><h3>Luminosidade</h3><i class="bi bi-brightness-high resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/Buzzer.png" alt="Buzzer"></div><div class="resource-copy"><h3>Buzzer</h3><i class="bi bi-ear resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/SensorHall.png" alt="Sensor de efeito Hall"></div><div class="resource-copy"><h3>Sensor Hall</h3><i class="bi bi-magnet resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/MotorCC.png" alt="Motor de corrente contínua"></div><div class="resource-copy"><h3>Motor CC</h3><i class="bi bi-speedometer2 resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/MotorServo.png" alt="Motor servo"></div><div class="resource-copy"><h3>Servo Motor</h3><i class="bi bi-send resource-badge" aria-hidden="true"></i></div></article></div>
-          <div class="col-12 col-md-6 col-lg-4"><article class="card resource-card h-100"><div class="resource-image"><img src="imagens/Piezoeletrico.png" alt="Sensor piezoelétrico"></div><div class="resource-copy"><h3>Piezoelétrico</h3><i class="bi bi-broadcast resource-badge" aria-hidden="true"></i></div></article></div>
         </div>
       </section>
 
@@ -175,20 +190,12 @@
         </div>
       </section>
 
-      <!-- Seção Instituição -->
-      <section id="instituicao">
-        <h2 class="section-title">Instituição de Origem</h2>
-        <div class="institution-card">
-          <p>A <strong>Plataforma ExpeRT</strong> é desenvolvida e mantida no <strong>Instituto Federal de Educação, Ciência e Tecnologia Catarinense (IFC) – Campus Sombrio</strong>. Trata-se de um projeto de pesquisa focado em soluções computacionais aplicadas ao ensino didático de ciências.</p>
-        </div>
-      </section>
-
     </div>
   </main>
 
   <!-- Rodapé -->
   <footer>
-    <p>&copy; 2026 Plataforma ExpeRT — Instituto Federal Catarinense (Campus Sombrio)</p>
+    <p>&copy; 2026 Plataforma ExpeRT — Instituto Federal Catarinense Campus Sombrio</p>
   </footer>
 
   <script>
