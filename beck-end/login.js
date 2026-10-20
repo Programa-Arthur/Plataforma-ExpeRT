@@ -7,7 +7,8 @@ import {
 
 import { readFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
-import { createServer } from 'node:http';
+import { createServer, request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
 import { extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MongoClient } from 'mongodb';
@@ -37,6 +38,98 @@ const port = Number(
 const adminSessions = new Map();
 const userSessions = new Map();
 const userSessionDuration = 8 * 60 * 60 * 1000;
+
+
+// ======================================================
+// PROXY PARA A EDGE FUNCTION DA SUPABASE
+// ======================================================
+//
+// O back-end de produção roda como Edge Function na Supabase
+// (supabase/functions/app). Em desenvolvimento, este servidor
+// encaminha /api/* e /download/* para ela, de modo que o site
+// local use exatamente o mesmo back-end.
+//
+// Para testar a implementação antiga (MongoDB + scrypt) que
+// roda neste arquivo, defina LEGACY_BACKEND=1.
+//
+// ======================================================
+
+const functionUrl =
+  process.env.SUPABASE_FUNCTION_URL ||
+  'https://xoacnxclwytocrubapap.supabase.co/functions/v1/app';
+
+const useLegacyBackend =
+  process.env.LEGACY_BACKEND === '1';
+
+
+function proxyToFunction(
+  request,
+  response,
+  pathname
+) {
+
+  const target =
+    new URL(functionUrl + pathname);
+
+  const headers = { ...request.headers };
+
+  delete headers.host;
+  delete headers.connection;
+  delete headers['content-length'];
+
+  const proxyRequest = (
+    target.protocol === 'https:'
+      ? httpsRequest
+      : httpRequest
+  )(
+    target,
+    {
+      method: request.method,
+      headers
+    },
+    (proxyResponse) => {
+
+      const responseHeaders = { ...proxyResponse.headers };
+
+      delete responseHeaders['content-encoding'];
+      delete responseHeaders['transfer-encoding'];
+
+      response.writeHead(
+        proxyResponse.statusCode,
+        responseHeaders
+      );
+
+      proxyResponse.pipe(response);
+
+    }
+  );
+
+  proxyRequest.on(
+    'error',
+    (error) => {
+
+      console.error(
+        'Falha ao falar com a Edge Function:',
+        error.message
+      );
+
+      response.writeHead(502, {
+        'Content-Type': 'application/json; charset=utf-8'
+      });
+
+      response.end(
+        JSON.stringify({
+          mensagem:
+            'Não foi possível falar com o servidor agora.'
+        })
+      );
+
+    }
+  );
+
+  request.pipe(proxyRequest);
+
+}
 
 
 // ======================================================
@@ -843,6 +936,21 @@ const server =
           )
         );
 
+      // Encaminha as rotas da API para a Edge Function da
+      // Supabase (mesmo back-end de produção).
+      if (
+        !useLegacyBackend &&
+        /^\/(api|download)\//.test(url.pathname)
+      ) {
+
+        return proxyToFunction(
+          request,
+          response,
+          url.pathname
+        );
+
+      }
+
       if (request.method === 'POST' && url.pathname === '/api/admin/login') {
         return adminLogin(request, response);
       }
@@ -854,6 +962,25 @@ const server =
       }
       if (request.method === 'GET' && url.pathname === '/download/installer') {
         return redirectToLatestInstaller(response, url.searchParams.get('platform'));
+      }
+      if (request.method === 'GET' && url.pathname === '/download/source') {
+        const sessionCookie = request.headers.cookie
+          ?.split(';')
+          .map((part) => part.trim())
+          .find((part) => part.startsWith('expert_session='));
+        const sessionToken = sessionCookie?.slice('expert_session='.length);
+        const expiresAt = userSessions.get(sessionToken);
+
+        if (!expiresAt || expiresAt <= Date.now()) {
+          userSessions.delete(sessionToken);
+          response.writeHead(302, { Location: '/login.html?redirect=tutorial.html' });
+          return response.end();
+        }
+
+        return sendFile(
+          response,
+          join(frontendDirectory, 'downloads', 'plataforma-expert.zip')
+        );
       }
 
 

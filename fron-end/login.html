@@ -104,6 +104,11 @@
   </footer>
 
   <script>
+    // A API roda na mesma origem do site (Edge Function da Supabase
+    // ou servidor local). O caminho base é calculado a partir da URL
+    // atual, assim o site funciona nos dois ambientes.
+    const API_BASE = location.pathname.replace(/[^/]*$/, '') + 'api';
+
     document.addEventListener('DOMContentLoaded', () => {
       // --- CONTROLE DE TEMA ---
       const themeToggleBtn = document.getElementById('themeToggle');
@@ -193,7 +198,7 @@
         }
 
         try {
-          const response = await fetch(isRegistering ? '/api/register' : '/api/login', {
+          const response = await fetch(`${API_BASE}${isRegistering ? '/register' : '/login'}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

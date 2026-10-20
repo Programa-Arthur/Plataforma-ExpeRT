@@ -112,16 +112,16 @@
         <li>No <strong>Ubuntu ou Debian</strong>, abra o arquivo <code>.deb</code> e escolha a opção de instalar no aplicativo de programas. Em outras versões do Linux, use o link AppImage, se estiver disponível.</li>
       </ol>
       <div class="download-actions">
-        <a class="btn-animado" id="downloadApp" href="/download/installer?platform=linux">Baixar aplicativo</a>
-        <a class="resource-link" id="downloadAppImage" href="/download/installer?platform=linux-appimage">Baixar AppImage para outras distribuições Linux</a>
+        <a class="btn-animado" id="downloadApp" href="download/installer?platform=linux">Baixar aplicativo</a>
+        <a class="resource-link" id="downloadAppImage" href="download/installer?platform=linux-appimage">Baixar AppImage para outras distribuições Linux</a>
       </div>
       <p id="downloadPlatformHint" class="download-platform-hint" aria-live="polite"></p>
       <div class="notice" id="installerNotice" hidden></div>
       <details>
         <summary>Opção para quem desenvolve: baixar o código-fonte</summary>
         <p>O ZIP contém os arquivos usados para criar o aplicativo; não é o instalador para uso comum. Para abrir o projeto, é necessário instalar Node.js, extrair o ZIP, abrir um terminal na pasta que contém <code>package.json</code> e executar <code>npm install</code>. Depois, execute <code>npm start</code> para iniciar a aplicação.</p>
-        <a class="resource-link" href="downloads/plataforma-expert.zip" download>Baixar código-fonte (ZIP)</a>
-        <a class="resource-link" href="/download/project" target="_blank" rel="noopener noreferrer">Abrir repositório do projeto</a>
+        <a class="resource-link" href="download/source" download>Baixar código-fonte (ZIP)</a>
+        <a class="resource-link" href="download/project" target="_blank" rel="noopener noreferrer">Abrir repositório do projeto</a>
       </details>
     </section>
 
@@ -157,6 +157,22 @@
   </main>
   <footer><p>&copy; 2026 ExpeRT Plataforma — Instituto Federal Catarinense (Campus Sombrio)</p></footer>
   <script>
+    // O tutorial só pode ser visto por quem está com sessão válida.
+    // Como a página é servida de forma estática (Vercel), a
+    // verificação é feita no navegador: a API responde 401 quando
+    // não há sessão, e aí a pessoa é levada para a tela de login.
+    (async () => {
+      try {
+        const response = await fetch('/api/session', { credentials: 'same-origin' });
+        if (!response.ok) {
+          window.location.href = '/login.html?redirect=tutorial.html';
+        }
+      } catch (error) {
+        window.location.href = '/login.html?redirect=tutorial.html';
+      }
+    })();
+  </script>
+  <script>
     const downloadApp = document.getElementById('downloadApp');
     const downloadAppImage = document.getElementById('downloadAppImage');
     const downloadPlatformHint = document.getElementById('downloadPlatformHint');
@@ -182,7 +198,7 @@
     }
 
     if (!downloadApp.hidden) {
-      downloadApp.href = `/download/installer?platform=${installerPlatform}`;
+      downloadApp.href = `download/installer?platform=${installerPlatform}`;
       downloadApp.textContent = `Baixar aplicativo para ${readablePlatform}`;
       downloadPlatformHint.textContent = `Sistema detectado: ${readablePlatform}.`;
     }
