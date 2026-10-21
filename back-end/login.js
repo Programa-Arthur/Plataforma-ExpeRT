@@ -24,7 +24,7 @@ const directory = resolve(
 
 const frontendDirectory = resolve(
   directory,
-  '../fron-end'
+  '../front-end'
 );
 
 const credentialsPath = join(
@@ -742,7 +742,7 @@ function adminLogin(request, response) {
   return readJsonBody(request).then(({ password }) => {
     if (!adminPassword) {
       return sendJson(response, 503, {
-        mensagem: 'Configure ADMIN_PASSWORD no beck-end/atlas-credentials.env para ativar o painel administrativo.'
+        mensagem: 'Configure ADMIN_PASSWORD no back-end/atlas-credentials.env para ativar o painel administrativo.'
       });
     }
     if (typeof password !== 'string' || password !== adminPassword) {

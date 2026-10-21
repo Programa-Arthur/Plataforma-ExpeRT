@@ -8,7 +8,7 @@ Campus Sombrio) e o back-end que o sustenta.
 
 | Parte | Onde | Observação |
 |---|---|---|
-| Site (HTML/CSS/imagens) | **Vercel** (pasta `fron-end/`) | Estático, com rewrite para a API |
+| Site (HTML/CSS/imagens) | **Vercel** (pasta `front-end/`) | Estático, com rewrite para a API |
 | API (login, cadastro, painel, downloads) | **Supabase Edge Function** (`supabase/functions/app`) | Runtime Deno, deploy sem Docker |
 | Identidade (login/senha) | **Supabase Auth** | JWT em cookie `HttpOnly` |
 | Perfis de usuário e contador de downloads | **MongoDB Atlas** (base `ExpeRT`) | Coleções `users` e `downloadStats` |
@@ -25,8 +25,8 @@ a Edge Function, mantendo site e API na mesma origem (sem CORS, cookie
 ## Estrutura
 
 ```
-beck-end/            servidor Node (uso local; faz proxy para a Edge Function)
-fron-end/            site estático publicado no Vercel
+back-end/            servidor Node (uso local; faz proxy para a Edge Function)
+front-end/           site estático publicado no Vercel
 supabase/
   config.toml        configuração do projeto Supabase
   functions/app/     Edge Function (back-end de produção)
@@ -41,7 +41,7 @@ vercel.json          rewrites /api/* e /download/* para a Supabase
 
 ```bash
 # terminal 1 — o back-end real, na Supabase
-node beck-end/login.js      # http://localhost:3000
+node back-end/login.js      # http://localhost:3000
 
 # o servidor local serve o site e encaminha /api/* e /download/*
 # para a Edge Function implantada
@@ -51,7 +51,7 @@ Para testar a implementação antiga (MongoDB + scrypt) que mora no mesmo
 arquivo:
 
 ```bash
-LEGACY_BACKEND=1 node beck-end/login.js
+LEGACY_BACKEND=1 node back-end/login.js
 ```
 
 ## Testando a Edge Function localmente (sem Docker)
@@ -98,7 +98,7 @@ O script usa a Management API (sem Docker). O token vem de
 ### 3. Site no Vercel
 
 1. Importe o repositório no Vercel
-2. Defina **Root Directory** = `fron-end`
+2. Defina **Root Directory** = `front-end`
 3. Mantenha o `vercel.json` da raiz do repositório (os rewrites valem
    para toda a publicação)
 
@@ -120,7 +120,7 @@ O script usa a Management API (sem Docker). O token vem de
 
 - A senha do MongoDB **não** fica no repositório: use
   `supabase/.env.production` (ignorado pelo git) e a Management API.
-  O arquivo antigo `beck-end/atlas-credentials.env` saiu do versionamento
+  O arquivo antigo `back-end/atlas-credentials.env` saiu do versionamento
   — **troque a senha no Atlas**, pois ela ficou exposta no histórico.
 - O painel administrativo usa token JWT assinado (HS256), sem estado em
   memória — funciona em ambiente serverless.
