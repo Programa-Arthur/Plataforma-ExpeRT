@@ -12,7 +12,7 @@
     .admin-header { display: flex; align-items: center; justify-content: space-between; min-height: 80px; padding: 0 2rem; background: #12347a; box-shadow: 0 4px 16px #12347a2b; }
     .admin-brand { display: block; width: 145px; height: 62px; object-fit: contain; }
     .admin-header-actions { display: flex; align-items: center; gap: 12px; }
-    .admin-back { display: inline-flex; align-items: center; gap: 9px; padding: 8px 18px; border: 1px solid #ffffff70; border-radius: 999px; color: #fff; background: #ffffff16; font-size: .9rem; font-weight: 600; text-decoration: none; transition: background-color .18s ease, border-color .18s ease; }
+    .admin-back { display: inline-flex; align-items: center; gap: 9px; padding: 8px 18px; border: 1px solid transparent; border-radius: 5px; color: #fff; background: transparent; font-size: .9rem; font-weight: 600; text-decoration: none; transition: background-color .18s ease, border-color .18s ease; }
     .admin-back:hover { color: #12347a; background: #fff; border-color: #fff; }
     .admin-back:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #8bb5ff; outline-offset: 3px; }
     main { width: min(1100px, 100% - 40px); margin: 42px auto; }
@@ -43,8 +43,8 @@
     tbody tr:hover { background: #f8fbff; }
     .hidden { display: none; }
     .muted { margin: 0; color: #64748b; }
-    .admin-theme-toggle { display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center; margin: 0; padding: 0; border: 1px solid #ffffff70; border-radius: 50%; color: #ffd43b; background: #ffffff16; font-size: 1.15rem; }
-    .admin-theme-toggle:hover { background: #ffffff30; }
+    .admin-theme-toggle { display: inline-flex; width: 42px; height: 42px; align-items: center; justify-content: center; margin: 0; padding: 0; border: 1px solid #ffffff70; border-radius: 50%; color: #ffd43b; background: transparent; font-size: 1.15rem; }
+    .admin-theme-toggle:hover { background: transparent; }
     .admin-theme-toggle i { transition: transform 420ms cubic-bezier(.2,.8,.2,1); }
     .admin-theme-toggle .bi-moon-stars-fill { transform: rotate(-18deg) scale(.92); }
     .admin-theme-toggle .bi-brightness-high-fill { transform: rotate(180deg) scale(1.08); }
@@ -121,7 +121,7 @@
   const htmlElement = document.documentElement;
   function applyTheme(theme) {
     htmlElement.setAttribute('data-theme', theme);
-    themeIcon.className = theme === 'dark' ? 'bi bi-brightness-high-fill' : 'bi bi-moon-stars-fill';
+    themeIcon.className = theme === 'dark' ? 'bi bi-moon-stars-fill' : 'bi bi-brightness-high-fill';
     themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro');
   }
   try {

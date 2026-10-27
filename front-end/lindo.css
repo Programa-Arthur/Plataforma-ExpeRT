@@ -129,11 +129,11 @@ body {
 }
 
 .btn-header {
-    background: rgba(255, 255, 255, 0.15);
+    background: transparent;
     color: #fff;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
     padding: 8px 18px;
     font-weight: 600;
     font-size: 0.9rem;
@@ -141,7 +141,7 @@ body {
 }
 
 .btn-header:hover {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.18);
     color: var(--bg-header);
 }
 
@@ -154,7 +154,7 @@ body {
     padding: 0;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.08);
+    background: transparent;
     font: inherit;
     cursor: pointer;
 }
@@ -179,7 +179,7 @@ body {
 }
 
 .theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.18);
+    background: transparent;
     transform: none;
 }
 
