@@ -687,6 +687,105 @@ section {
     text-decoration: underline;
 }
 
+/* Acabamento visual das seções institucionais */
+.about-platform,
+.institution-card,
+.timeline-card,
+.team-card {
+    border: 1px solid rgba(52, 120, 212, 0.14);
+    box-shadow: 0 10px 28px rgba(18, 52, 122, 0.08);
+}
+
+.about-platform {
+    border-left: 4px solid var(--accent-cyan);
+    border-radius: 0 18px 18px 0;
+}
+
+.institution-card {
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid var(--accent-cyan);
+    border-radius: 0 16px 16px 0;
+    background: linear-gradient(135deg, var(--bg-card), rgba(52, 120, 212, 0.045));
+}
+
+.institution-card p { margin: 0; }
+
+.section-title {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+}
+
+.section-title > .bi {
+    margin-right: 0.35rem;
+    color: var(--accent-cyan);
+    font-size: 0.82em;
+}
+
+.timeline {
+    border-left: 2px solid rgba(52, 120, 212, 0.35);
+}
+
+.timeline-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid rgba(52, 120, 212, 0.16);
+    border-radius: 999px;
+    background: rgba(52, 120, 212, 0.08);
+}
+
+.timeline-card {
+    border-radius: 16px;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.timeline-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(18, 52, 122, 0.12);
+}
+
+.timeline-card h3 > .bi,
+.team-card h3 > .bi,
+.faculty-title > .bi {
+    margin-right: 0.35rem;
+    color: var(--accent-cyan);
+}
+
+.platform-parts li::marker { color: var(--accent-cyan); }
+
+.tech-tags span {
+    border: 1px solid rgba(52, 120, 212, 0.13);
+    background: rgba(52, 120, 212, 0.09);
+    color: var(--text-card);
+}
+
+.team-card { border-radius: 16px; }
+
+:root[data-theme="dark"] .institution-card,
+:root[data-theme="dark"] .about-platform,
+:root[data-theme="dark"] .timeline-card,
+:root[data-theme="dark"] .team-card {
+    border-color: #203c6b;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+:root[data-theme="dark"] .institution-card {
+    background: linear-gradient(135deg, var(--bg-card), rgba(77, 127, 215, 0.1));
+}
+
+:root[data-theme="dark"] .timeline-date,
+:root[data-theme="dark"] .tech-tags span {
+    border-color: #294471;
+    background: #12234b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .timeline-card { transition: none; }
+    .timeline-card:hover { transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .team-card { transition: none; }
     .team-card:hover { transform: none; }
