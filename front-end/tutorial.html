@@ -147,6 +147,7 @@
         <li><strong>A plataforma indica “Desconectado”:</strong> confira se o cabo USB transmite dados, se o Arduino está ligado e se o Monitor Serial está fechado.</li>
         <li><strong>Os valores não aparecem:</strong> confirme que escolheu o acessório correto, que o sketch correspondente foi carregado e que as conexões seguem o desenho do kit.</li>
         <li><strong>A Arduino IDE mostra um erro:</strong> confira o modelo da placa selecionado e peça ao professor para confirmar que o arquivo <code>.ino</code> é o correto.</li>
+        <li><strong>O aplicativo dá erro no Linux ou não acessa o Arduino:</strong> abra o Terminal e digite <code>groups</code>. Se a lista não mostrar <code>dialout</code>, adicione seu usuário com <code>sudo usermod -a -G dialout $USER</code>. Em distribuições que usam o grupo <code>uucp</code>, tente também <code>sudo usermod -aG uucp $USER</code>. Depois, encerre a sessão do Linux e entre novamente para a alteração valer. Se o aplicativo continuar dando erro ao iniciar, abra o Terminal na pasta do aplicativo e tente <code>seu-app --no-sandbox</code>, substituindo <code>seu-app</code> pelo comando de inicialização do aplicativo. Use essa opção apenas para diagnóstico.</li>
         <li><strong>O instalador não aparece:</strong> talvez ainda não exista uma versão publicada para o seu sistema. Nesse caso, tente novamente mais tarde ou use a opção de código-fonte se você for desenvolvedor.</li>
       </ul>
     </section>
