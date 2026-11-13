@@ -67,6 +67,14 @@
           </div>
         </div>
 
+        <div class="form-group" id="institutionGroup" hidden>
+          <label for="institution">Instituição</label>
+          <div class="input-wrapper">
+            <i class="bi bi-building"></i>
+            <input type="text" id="institution" name="institution" autocomplete="organization" placeholder="Nome da instituição">
+          </div>
+        </div>
+
         <div class="form-group" id="confirmPasswordGroup" hidden>
           <label for="confirmPassword">Confirmar senha</label>
           <div class="input-wrapper">
@@ -139,6 +147,9 @@
       const botaoSubmit = document.getElementById('btnSubmit');
       const nameGroup = document.getElementById('nameGroup');
       const nameInput = document.getElementById('name');
+      const institutionGroup = document.getElementById('institutionGroup');
+      const institutionInput = document.getElementById('institution');
+      const userTypeInput = document.getElementById('userType');
       const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
       const confirmPasswordInput = document.getElementById('confirmPassword');
       const passwordInput = document.getElementById('password');
@@ -155,6 +166,9 @@
 
       function updateAuthMode() {
         nameGroup.hidden = !isRegistering;
+        const needsInstitution = isRegistering && ['discente', 'docente'].includes(userTypeInput.value);
+        institutionGroup.hidden = !needsInstitution;
+        institutionInput.required = needsInstitution;
         confirmPasswordGroup.hidden = !isRegistering;
         nameInput.required = isRegistering;
         confirmPasswordInput.required = isRegistering;
@@ -179,6 +193,7 @@
       }
 
       authToggle.addEventListener('click', toggleAuthMode);
+      userTypeInput.addEventListener('change', updateAuthMode);
 
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault(); // Impede o recarregamento da página
@@ -188,7 +203,8 @@
         const email = document.getElementById('email').value;
         const password = passwordInput.value;
         const name = nameInput.value;
-        const type = document.getElementById('userType').value;
+        const type = userTypeInput.value;
+        const institution = institutionInput.value.trim();
 
         if (isRegistering && password !== confirmPasswordInput.value) {
           showMessage('As senhas não são iguais.');
@@ -202,7 +218,7 @@
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(isRegistering ? { name, email, password, type } : { email, password, type })
+            body: JSON.stringify(isRegistering ? { name, email, password, type, institution } : { email, password, type })
           });
 
           const data = await response.json();

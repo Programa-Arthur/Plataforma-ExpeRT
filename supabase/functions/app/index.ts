@@ -770,7 +770,7 @@ async function register(
       name: null
     };
 
-    if (normalizedType === 'docente') {
+    if (['docente', 'discente'].includes(normalizedType)) {
 
       const institutionName =
         typeof institution === 'string'

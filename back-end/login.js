@@ -577,10 +577,9 @@ async function register(request, response) {
     };
 
 
-    // A instituição só será considerada
-    // para usuários docentes.
+    // Discentes e docentes podem informar sua instituição.
 
-    if (normalizedType === 'docente') {
+    if (['docente', 'discente'].includes(normalizedType)) {
 
       const institutionName =
         typeof institution === 'string'
