@@ -46,7 +46,7 @@
     background: linear-gradient(115deg, #081943 0%, #05133b 100%);
 }
 
-:root[data-theme="dark"] .about-platform,
+:root[data-theme="dark"] .about-platform-card,
 :root[data-theme="dark"] .timeline-card,
 :root[data-theme="dark"] .team-card,
 :root[data-theme="dark"] .resource-card {
@@ -764,7 +764,7 @@ section {
 .team-card { border-radius: 16px; }
 
 :root[data-theme="dark"] .institution-card,
-:root[data-theme="dark"] .about-platform,
+:root[data-theme="dark"] .about-platform-card,
 :root[data-theme="dark"] .timeline-card,
 :root[data-theme="dark"] .team-card {
     border-color: #203c6b;
@@ -848,7 +848,7 @@ footer {
     .btn-animado {
         padding: 12px 20px;
     }
-    .about-platform { padding: 1.35rem; }
+    .about-platform-card { padding: 1.35rem; }
     .hero-showcase .showcase-track img { width: 82px; height: 82px; }
 }
 
@@ -1004,4 +1004,42 @@ body.login-page {
     color: var(--bg-header);
     font-weight: 600;
     text-decoration: none;
+}
+
+/* Card da apresentação da plataforma */
+.about-platform {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 3rem;
+}
+
+.about-platform .section-title {
+    margin-bottom: 1.5rem;
+}
+
+.about-platform-card {
+    padding: 2rem;
+    border: 1px solid rgba(52, 120, 212, 0.14);
+    border-radius: 16px;
+    background: var(--bg-card);
+    box-shadow: 0 10px 28px rgba(18, 52, 122, 0.08);
+}
+
+.about-platform-card p {
+    margin: 0;
+    color: var(--text-card);
+    font-size: 1.05rem;
+}
+
+.about-platform-card p + p {
+    margin-top: 0.85rem;
+}
+
+:root[data-theme="dark"] .about-platform-card {
+    border-color: #203c6b;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 600px) {
+    .about-platform-card { padding: 1.35rem; }
 }
