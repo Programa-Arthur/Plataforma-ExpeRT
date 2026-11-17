@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "bootstrap": "^6.0.0-alpha.1"

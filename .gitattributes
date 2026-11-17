@@ -2,7 +2,4 @@
 node_modules/** linguist-vendored
 */node_modules/** linguist-vendored
 
-# Linguagens que não fazem parte deste projeto: fora das estatísticas do GitHub
-supabase/functions/app/**/*.ts linguist-detectable=false
-scripts/*.sh linguist-detectable=false
-scripts/*.py linguist-detectable=false
+# O projeto usa apenas JavaScript (.js), HTML e CSS

@@ -13,6 +13,13 @@ Campus Sombrio) e o back-end que o sustenta.
 | Identidade (login/senha) | **Supabase Auth** | JWT em cookie `HttpOnly` |
 | Perfis de usuário e contador de downloads | **MongoDB Atlas** (base `ExpeRT`) | Coleções `users` e `downloadStats` |
 
+## Linguagens
+
+O projeto usa apenas **JavaScript** (`.js`), **HTML** e **CSS**. O site
+está em `front-end/`, a API em `supabase/functions/app/index.js` e os
+scripts de deploy/teste em `scripts/` também são Node.js (sem Python ou
+shell).
+
 Por que o site não fica na Supabase: a plataforma força
 `Content-Type: text/plain` e uma CSP restritiva em qualquer resposta HTML
 (tanto em Edge Functions quanto em buckets do Storage) — uma proteção
@@ -31,9 +38,8 @@ supabase/
   config.toml        configuração do projeto Supabase
   functions/app/     Edge Function (back-end de produção)
 scripts/
-  build-static.mjs   (removido — o site não é mais empacotado na function)
-  deploy-function.py deploy da Edge Function pela Management API
-  test-function.sh   teste local da Edge Function (sem Docker)
+  deploy-function.js deploy da Edge Function pela Management API
+  test-function.js   teste local da Edge Function (sem Docker)
 vercel.json          rewrites /api/* e /download/* para a Supabase
 ```
 
@@ -60,7 +66,7 @@ LEGACY_BACKEND=1 node back-end/login.js
 # secrets locais (não versionar)
 cp supabase/.env.production.example supabase/.env.production
 
-node scripts/test-function.sh
+node scripts/test-function.js
 ```
 
 O script sobe a function com o Deno e exercita as rotas: health, login,
@@ -89,7 +95,7 @@ npx supabase secrets set \
 ### 2. Edge Function
 
 ```bash
-python3 scripts/deploy-function.py
+node scripts/deploy-function.js
 ```
 
 O script usa a Management API (sem Docker). O token vem de

@@ -420,9 +420,7 @@ enabled = true
 # então o gateway não pode exigir um JWT no cabeçalho Authorization.
 verify_jwt = false
 # Uncomment to specify a custom file path to the entrypoint.
-# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
-entrypoint = "./functions/app/index.ts"
-# O front-end é embutido na function por scripts/build-static.mjs
-# (supabase/functions/app/site.ts), e não servido como arquivo
-# estático da plataforma — assim o gate de sessão do tutorial
-# continua valendo.
+# Supported file extensions are: .js, .mjs, .jsx, .ts, .tsx
+entrypoint = "./functions/app/index.js"
+# O front-end é publicado de forma estática (pasta front-end/),
+# portanto não precisa ser embutido na function.
