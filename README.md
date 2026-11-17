@@ -1,4 +1,5 @@
-https://plataforma-expert-fron-end.vercel.app/admin.html
+https://plataforma-expert.vercel.app
+
 # Plataforma ExpeRT — site e back-end
 
 Site institucional da Plataforma ExpeRT (Instituto Federal Catarinense —
