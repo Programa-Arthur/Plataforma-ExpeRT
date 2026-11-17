@@ -58,6 +58,10 @@ const functionUrl =
   process.env.SUPABASE_FUNCTION_URL ||
   'https://xoacnxclwytocrubapap.supabase.co/functions/v1/app';
 
+const PLATFORM_REPO =
+  process.env.PLATFORM_REPO ||
+  'Programa-Arthur/plataforma-expert0';
+
 const useLegacyBackend =
   process.env.LEGACY_BACKEND === '1';
 
@@ -798,7 +802,7 @@ async function redirectToProjectRepository(response) {
       { upsert: true }
     );
     response.writeHead(302, {
-      Location: 'https://github.com/bs-laurao/plataforma-expert',
+      Location: `https://github.com/${PLATFORM_REPO}`,
       'Cache-Control': 'no-store'
     });
     return response.end();
@@ -827,7 +831,7 @@ async function redirectToLatestInstaller(response, platform) {
 
   try {
     const releaseResponse = await fetch(
-      'https://api.github.com/repos/bs-laurao/plataforma-expert/releases/latest',
+      `https://api.github.com/repos/${PLATFORM_REPO}/releases/latest`,
       {
         headers: {
           Accept: 'application/vnd.github+json',
@@ -962,7 +966,7 @@ const server =
       if (request.method === 'GET' && url.pathname === '/download/installer') {
         return redirectToLatestInstaller(response, url.searchParams.get('platform'));
       }
-      if (request.method === 'GET' && url.pathname === '/download/source') {
+      if (request.method === 'GET' && (url.pathname === '/download/source' || url.pathname === '/downloads/plataforma-expert.zip' || url.pathname === '/downloads/plataforma-expert0.zip')) {
         const sessionCookie = request.headers.cookie
           ?.split(';')
           .map((part) => part.trim())
@@ -976,9 +980,13 @@ const server =
           return response.end();
         }
 
+        const zipName = url.pathname === '/downloads/plataforma-expert0.zip'
+          ? 'plataforma-expert0.zip'
+          : 'plataforma-expert.zip';
+
         return sendFile(
           response,
-          join(frontendDirectory, 'downloads', 'plataforma-expert.zip')
+          join(frontendDirectory, 'downloads', zipName)
         );
       }
 
@@ -1037,7 +1045,8 @@ const server =
 
       // O tutorial e os arquivos da aplicação só podem ser acessados com sessão válida.
       const protectedTutorialPath = url.pathname === '/tutorial.html' ||
-        url.pathname.startsWith('/downloads/plataforma-expert/');
+        url.pathname.startsWith('/downloads/plataforma-expert') ||
+        url.pathname.startsWith('/downloads/plataforma-expert0');
       if (request.method === 'GET' && protectedTutorialPath) {
         const sessionCookie = request.headers.cookie
           ?.split(';')

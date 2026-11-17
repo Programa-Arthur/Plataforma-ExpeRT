@@ -54,7 +54,7 @@ const SITE_URL =
 // Repositório da Plataforma ExpeRT (aplicativo desktop).
 // Usado para servir as imagens e o código-fonte do projeto.
 const PLATFORM_REPO =
-  Deno.env.get("PLATFORM_REPO") ?? "bs-laurao/plataforma-expert";
+  Deno.env.get("PLATFORM_REPO") ?? "Programa-Arthur/plataforma-expert0";
 
 const PLATFORM_BRANCH =
   Deno.env.get("PLATFORM_BRANCH") ?? "main";
@@ -1647,7 +1647,8 @@ Deno.serve(
     // O código-fonte só pode ser acessado com sessão válida.
     if (
       request.method === 'GET' &&
-      path.startsWith('/downloads/plataforma-expert/')
+      (path.startsWith('/downloads/plataforma-expert') ||
+       path.startsWith('/downloads/plataforma-expert0'))
     ) {
 
       const session =

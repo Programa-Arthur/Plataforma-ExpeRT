@@ -168,7 +168,6 @@
         nameGroup.hidden = !isRegistering;
         const needsInstitution = isRegistering && ['discente', 'docente'].includes(userTypeInput.value);
         institutionGroup.hidden = !needsInstitution;
-        institutionInput.required = needsInstitution;
         confirmPasswordGroup.hidden = !isRegistering;
         nameInput.required = isRegistering;
         confirmPasswordInput.required = isRegistering;
@@ -213,12 +212,16 @@
         }
 
         try {
+          const payload = isRegistering
+            ? { name, email, password, type, institution }
+            : { email, password, type };
+
           const response = await fetch(`${API_BASE}${isRegistering ? '/register' : '/login'}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(isRegistering ? { name, email, password, type, institution } : { email, password, type })
+            body: JSON.stringify(payload)
           });
 
           const data = await response.json();
