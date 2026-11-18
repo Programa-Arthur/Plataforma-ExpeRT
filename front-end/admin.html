@@ -104,7 +104,7 @@
       <div class="stat">Docentes<strong id="totalTeachers">0</strong></div>
       <div class="stat">Discentes<strong id="totalStudents">0</strong></div>
       <div class="stat">Outros<strong id="totalOthers">0</strong></div>
-      <div class="stat">Docentes com instituição<strong id="totalInstitutions">0</strong></div>
+      <div class="stat">Contas com instituição<strong id="totalInstitutions">0</strong></div>
       <div class="stat">Cliques no link para baixar o projeto<button class="secondary count-toggle" id="downloadCountToggle" type="button" aria-expanded="false" aria-controls="downloadClicks">Mostrar total</button><strong id="downloadClicks" hidden>0</strong></div>
     </div>
     <div id="tables"></div>
@@ -176,7 +176,7 @@
       document.getElementById('totalTeachers').textContent = data.docentes;
       document.getElementById('totalStudents').textContent = data.discentes;
       document.getElementById('totalOthers').textContent = data.outros;
-      document.getElementById('totalInstitutions').textContent = data.docentesComInstituicao;
+      document.getElementById('totalInstitutions').textContent = data.usuariosComInstituicao ?? data.docentesComInstituicao ?? 0;
       document.getElementById('downloadClicks').textContent = data.downloadClicks ?? 0;
       const container = document.getElementById('tables');
       container.replaceChildren();
@@ -204,7 +204,7 @@
         }
         for (const user of users) {
           const row = document.createElement('tr');
-          const institution = group.type === 'docente' && user.institution?.linked ? user.institution.name : '—';
+          const institution = user.institution?.linked ? user.institution.name : '—';
           const values = [user.name || '—', user.email || '—', institution,
             user.createdAt ? new Date(user.createdAt).toLocaleString('pt-BR') : '—'];
           for (const value of values) { const cell = document.createElement('td'); cell.textContent = value; row.appendChild(cell); }

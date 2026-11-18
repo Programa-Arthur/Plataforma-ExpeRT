@@ -575,30 +575,26 @@ async function register(request, response) {
     // INSTITUIÇÃO
     // ------------------------------------------
 
+    // Todos os tipos de usuário (docente, discente e outro)
+    // podem informar sua instituição.
+
     let institutionData = {
       linked: false,
       name: null
     };
 
-
-    // Discentes e docentes podem informar sua instituição.
-
-    if (['docente', 'discente'].includes(normalizedType)) {
-
-      const institutionName =
-        typeof institution === 'string'
-          ? institution.trim()
-          : '';
+    const institutionName =
+      typeof institution === 'string'
+        ? institution.trim()
+        : '';
 
 
-      if (institutionName) {
+    if (institutionName) {
 
-        institutionData = {
-          linked: true,
-          name: institutionName
-        };
-
-      }
+      institutionData = {
+        linked: true,
+        name: institutionName
+      };
 
     }
 
@@ -785,6 +781,7 @@ async function listAdminUsers(request, response) {
       discentes: discentes.length,
       outros: outros.length,
       docentesComInstituicao: docentes.filter((user) => user.institution.linked).length,
+      usuariosComInstituicao: safeUsers.filter((user) => user.institution.linked).length,
       downloadClicks: downloadInfo?.count || 0,
       users: safeUsers
     });

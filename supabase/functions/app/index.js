@@ -765,25 +765,24 @@ async function register(
     const normalizedType =
       normalizeType(type);
 
+    // Todos os tipos de usuário (docente, discente e outro)
+    // podem informar a instituição, que é gravada no MongoDB.
+
     let institutionData = {
       linked: false,
       name: null
     };
 
-    if (['docente', 'discente'].includes(normalizedType)) {
+    const institutionName =
+      typeof institution === 'string'
+        ? institution.trim()
+        : '';
 
-      const institutionName =
-        typeof institution === 'string'
-          ? institution.trim()
-          : '';
-
-      if (institutionName) {
-        institutionData = {
-          linked: true,
-          name: institutionName
-        };
-      }
-
+    if (institutionName) {
+      institutionData = {
+        linked: true,
+        name: institutionName
+      };
     }
 
     if (
@@ -1073,6 +1072,10 @@ async function listAdminUsers(
       outros: outros.length,
       docentesComInstituicao:
         docentes.filter(
+          (user) => user.institution.linked
+        ).length,
+      usuariosComInstituicao:
+        safeUsers.filter(
           (user) => user.institution.linked
         ).length,
       downloadClicks:

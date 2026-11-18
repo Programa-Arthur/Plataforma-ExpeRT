@@ -166,8 +166,9 @@
 
       function updateAuthMode() {
         nameGroup.hidden = !isRegistering;
-        const needsInstitution = isRegistering && ['discente', 'docente'].includes(userTypeInput.value);
-        institutionGroup.hidden = !needsInstitution;
+        // A instituição pode ser informada por qualquer tipo de conta
+        // (docente, discente ou outro) durante o cadastro.
+        institutionGroup.hidden = !isRegistering;
         confirmPasswordGroup.hidden = !isRegistering;
         nameInput.required = isRegistering;
         confirmPasswordInput.required = isRegistering;
